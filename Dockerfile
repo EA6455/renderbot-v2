@@ -1,15 +1,12 @@
-# ASTRA6 Rebuilt Smooth - Simple Python, no Wine needed for free access version
+# ASTRA6 Rebuilt Smooth - Real price with yfinance
 FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install Python dependencies only - no Wine/MT5 needed for free access rebuilt version
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt* ./
-RUN pip install --no-cache-dir fastapi uvicorn python-dotenv oandapyV20 2>&1 | tail -5 || pip install fastapi uvicorn python-dotenv oandapyV20
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
